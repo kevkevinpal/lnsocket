@@ -7,10 +7,6 @@ var Module = (() => {
   return function(Module) {
     Module = Module || {};
 
-    function randomValuesNode() {
-      return randomBytesNode(1)[0] >>> 0;
-    }
-
     var Module = typeof Module != "undefined" ? Module : {};
     var readyPromiseResolve, readyPromiseReject;
     Module["ready"] = new Promise(function(resolve, reject) {
@@ -18,11 +14,6 @@ var Module = (() => {
       readyPromiseReject = reject;
     });
     Module.getRandomValue = (function() {
-      function randomValuesStandard() {
-        var buf = new Uint32Array(1);
-        crypto_.getRandomValues(buf);
-        return buf[0] >>> 0;
-      }
       const window_ = "object" === typeof window ? window : this;
       const crypto_ =
         typeof window_.crypto !== "undefined"
@@ -35,6 +26,9 @@ var Module = (() => {
         fn = randomValuesNode;
       } else {
         fn = randomValuesStandard;
+      }
+      function randomValuesNode() {
+        return randomBytesNode(1)[0] >>> 0;
       }
       function randomValuesStandard() {
         var buf = new Uint32Array(1);
@@ -792,7 +786,7 @@ else if (typeof define === "function" && define["amd"])
   });
 else if (typeof exports === "object") exports["Module"] = Module;
 
-export async function lnsocket_init() {
+async function lnsocket_init() {
   const module = await Module();
 
   function SocketImpl(host) {
