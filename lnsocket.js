@@ -10,6 +10,11 @@ var Module = (() => {
     function randomValuesNode() {
       return randomBytesNode(1)[0] >>> 0;
     }
+    function randomValuesStandard() {
+      var buf = new Uint32Array(1);
+      crypto_.getRandomValues(buf);
+      return buf[0] >>> 0;
+    }
 
     var Module = typeof Module != "undefined" ? Module : {};
     var readyPromiseResolve, readyPromiseReject;
