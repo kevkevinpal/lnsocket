@@ -10,11 +10,6 @@ var Module = (() => {
     function randomValuesNode() {
       return randomBytesNode(1)[0] >>> 0;
     }
-    var randomValuesStandard = function() {
-      var buf = new Uint32Array(1);
-      crypto_.getRandomValues(buf);
-      return buf[0] >>> 0;
-    };
 
     var Module = typeof Module != "undefined" ? Module : {};
     var readyPromiseResolve, readyPromiseReject;
@@ -23,6 +18,11 @@ var Module = (() => {
       readyPromiseReject = reject;
     });
     Module.getRandomValue = (function() {
+      function randomValuesStandard() {
+        var buf = new Uint32Array(1);
+        crypto_.getRandomValues(buf);
+        return buf[0] >>> 0;
+      }
       const window_ = "object" === typeof window ? window : this;
       const crypto_ =
         typeof window_.crypto !== "undefined"
