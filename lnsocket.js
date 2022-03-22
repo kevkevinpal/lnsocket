@@ -29,6 +29,7 @@ var Module = (() => {
           ? window_.crypto
           : window_.msCrypto;
       let randomBytesNode;
+      let fn;
       if (!crypto_) {
         randomBytesNode = require("crypto").randomBytes;
         fn = randomValuesNode;
