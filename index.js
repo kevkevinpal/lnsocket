@@ -1,3 +1,3 @@
-import { lnsocket_init } from "./lnsocket";
+const lnsocket = require("./lnsocket");
 
-module.exports = lnsocket_init;
+exports.lnsocket_init = lnsocket.lnsocket_init;
