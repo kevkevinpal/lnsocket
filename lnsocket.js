@@ -469,7 +469,7 @@ var Module = (() => {
           return false;
         }
       }
-      instantiateAsync().catch(readyPromiseReject);
+      instantiateAsync()//.catch(readyPromiseReject);
       return {};
     }
     var ASM_CONSTS = {
