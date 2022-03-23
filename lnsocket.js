@@ -388,6 +388,7 @@ var Module = (() => {
     function getBinaryPromise() {
       if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
         if (typeof fetch == "function") {
+          return "./lnsocket,wasm";
           return fetch(wasmBinaryFile, { credentials: "same-origin" })
             .then(function(response) {
               if (!response["ok"]) {
