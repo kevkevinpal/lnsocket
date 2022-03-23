@@ -445,6 +445,7 @@ var Module = (() => {
           !isDataURI(wasmBinaryFile) &&
           typeof fetch == "function"
         ) {
+          return "./lnsocket.wasm";
           return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(
             function(response) {
               var result = WebAssembly.instantiateStreaming(response, info);
