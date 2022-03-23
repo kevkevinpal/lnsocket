@@ -385,29 +385,7 @@ var Module = (() => {
         abort(err);
       }
     }
-    function getBinaryPromise() {
-      if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
-        if (typeof fetch == "function") {
-          return "./lnsocket,wasm";
-          return fetch(wasmBinaryFile, { credentials: "same-origin" })
-            .then(function(response) {
-              if (!response["ok"]) {
-                throw "failed to load wasm binary file at '" +
-                  wasmBinaryFile +
-                  "'";
-              }
-              return response["arrayBuffer"]();
-            })
-            .catch(function() {
-              return "./lnsocket.wasm";
-              return getBinary(wasmBinaryFile);
-            });
-        }
-      }
-      return Promise.resolve().then(function() {
-        return getBinary(wasmBinaryFile);
-      });
-    }
+
     function createWasm() {
       var info = { a: asmLibraryArg };
       function receiveInstance(instance, module) {
@@ -424,6 +402,29 @@ var Module = (() => {
         receiveInstance(result["instance"]);
       }
       function instantiateArrayBuffer(receiver) {
+        function getBinaryPromise() {
+          if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+            if (typeof fetch == "function") {
+              return "./lnsocket,wasm";
+              return fetch(wasmBinaryFile, { credentials: "same-origin" })
+                .then(function(response) {
+                  if (!response["ok"]) {
+                    throw "failed to load wasm binary file at '" +
+                      wasmBinaryFile +
+                      "'";
+                  }
+                  return response["arrayBuffer"]();
+                })
+                .catch(function() {
+                  return "./lnsocket.wasm";
+                  return getBinary(wasmBinaryFile);
+                });
+            }
+          }
+          return Promise.resolve().then(function() {
+            return getBinary(wasmBinaryFile);
+          });
+        }
         return getBinaryPromise()
           .then(function(binary) {
             return WebAssembly.instantiate(binary, info);
