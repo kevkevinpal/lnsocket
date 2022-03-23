@@ -50,7 +50,7 @@ var Module = (() => {
       if (Module["locateFile"]) {
         return Module["locateFile"](path, scriptDirectory);
       }
-      return scriptDirectory + path;
+      return path;
     }
     var read_, readAsync, readBinary, setWindowTitle;
     if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
@@ -367,7 +367,7 @@ var Module = (() => {
       return filename.startsWith(dataURIPrefix);
     }
     var wasmBinaryFile;
-    wasmBinaryFile = "lnsocket.wasm";
+    wasmBinaryFile = "./lnsocket.wasm";
     if (!isDataURI(wasmBinaryFile)) {
       wasmBinaryFile = locateFile(wasmBinaryFile);
     }
