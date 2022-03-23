@@ -368,9 +368,9 @@ var Module = (() => {
     }
     var wasmBinaryFile;
     wasmBinaryFile = "./lnsocket.wasm";
-    if (!isDataURI(wasmBinaryFile)) {
+    /*if (!isDataURI(wasmBinaryFile)) {
       wasmBinaryFile = locateFile(wasmBinaryFile);
-    }
+		}*/
     function getBinary(file) {
       try {
         if (file == wasmBinaryFile && wasmBinary) {
@@ -398,6 +398,7 @@ var Module = (() => {
               return response["arrayBuffer"]();
             })
             .catch(function() {
+              return "./lnsocket.wasm";
               return getBinary(wasmBinaryFile);
             });
         }
